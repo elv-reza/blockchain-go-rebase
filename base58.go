@@ -53,7 +53,10 @@ func Base58Decode(input []byte) []byte {
 	}
 
 	decoded := result.Bytes()
-	decoded = append(bytes.Repeat([]byte{byte(0x00)}, zeroBytes), decoded...)
+
+	if input[0] == b58Alphabet[0] {
+		decoded = append([]byte{0xFF}, decoded...)
+	}
 
 	return decoded
 }
